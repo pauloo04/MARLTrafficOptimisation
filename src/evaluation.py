@@ -23,7 +23,6 @@ import torch # type: ignore
 from ctde_agent import DQNAgent
 
 # Evaluation Configurations
-EPISODES = 10
 STEPS_PER_EPISODE = 3600
 SEEDS = [42, 100, 999, 1234, 5555, 11, 888, 2024, 2025, 2026]
 
@@ -31,7 +30,7 @@ SEEDS = [42, 100, 999, 1234, 5555, 11, 888, 2024, 2025, 2026]
 YELLOW_DURATION = 3
 MIN_GREEN_DURATION = 5
 MAX_GREEN_DURATION = 40
-ABBR = "29_05_3"
+ABBR = "MODEL_ABBR"
 LOAD_DIR = f'../models/{ABBR}'
 
 # Model Configurations
@@ -192,15 +191,16 @@ if __name__ == "__main__":
     # 3. Generate Report
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
     report_filename = f"../outputs/evaluation_reports/evaluation_report_{ABBR}_{timestamp}.txt"
+    os.makedirs(os.path.dirname(report_filename), exist_ok=True)
     
     with open(report_filename, "w") as f:
         print_and_write(f, "=" * 70)
         print_and_write(f, f"  TRAFFIC CONTROL EVALUATION REPORT ({ABBR})")
         print_and_write(f, "=" * 70)
-        print_and_write(f, f"Episodes Evaluated : {EPISODES}")
+        print_and_write(f, f"Episodes Evaluated : {len(SEEDS)}")
         print_and_write(f, f"Steps per Episode  : {STEPS_PER_EPISODE}")
         print_and_write(f, f"Seeds Used         : {SEEDS}")
-        print_and_write(f, "\n--- ABSOLUTE METRICS (Averages over 10 episodes) ---")
+        print_and_write(f, f"\n--- ABSOLUTE METRICS (Averages over {len(SEEDS)} episodes) ---")
         print_and_write(f, f"{'Model':<12} | {'Delay (s)':<12} | {'Teleports':<10} | {'CO2 (kg)':<10} | {'Fuel (L)':<10}")
         print_and_write(f, "-" * 70)
         

@@ -24,15 +24,15 @@ import torch
 from ctde_agent import DQNAgent
 
 # Training hyperparameters and environment config
-EPISODES = 250
+EPISODES = 1
 STEPS_PER_EPISODE = 3600
-SUMO_CMD = ["sumo", "-c", "../../env/simple.sumocfg", "--random", "--no-warnings", "--no-step-log"]
+SUMO_CMD = ["sumo", "-c", "../env/simple.sumocfg", "--random", "--no-warnings", "--no-step-log"]
 YELLOW_DURATION = 3
 MIN_GREEN_DURATION = 5
 MAX_GREEN_DURATION = 40
 
-ABBR = "31_05"
-DESC = "Graphical Run"
+ABBR = "MODEL_ABBR"
+DESC = "MODEL_DESCRIPTION"
 
 def get_dynamic_neighbors(tls_ids):
     # Find adjacent traffic lights by tracing connecting edges
@@ -124,7 +124,7 @@ def save_plot(data, title, line_color, ylabel, name):
     plt.xlabel('Episode')
     plt.ylabel(ylabel)
     plt.grid(True)
-    plt.savefig(f"../../outputs/learning_curves/{ABBR}/{name}.png")
+    plt.savefig(f"../outputs/learning_curves/{ABBR}/{name}.png")
 
 if __name__ == "__main__":
     # Spin up SUMO briefly just to map the intersection topology
@@ -189,7 +189,7 @@ if __name__ == "__main__":
         sample_agent_id = list(agents.keys())[0]
         print(f"  >> Ep {i+1} | Rwd: {episode_reward:.2f} | Delay: {episode_delay} | Switches: {episode_switches} | Teleports: {episode_teleports} | Epsilon: {master_agent.epsilon:.4f}")
 
-    os.makedirs(f"../../outputs/learning_curves/{ABBR}", exist_ok=True)
+    os.makedirs(f"../outputs/learning_curves/{ABBR}", exist_ok=True)
     
     # Save training metrics
     save_plot(teleports_per_episode, "Teleports", "red", "Total Teleported Vehicles", "teleports")
@@ -197,7 +197,7 @@ if __name__ == "__main__":
     save_plot(delays_per_episode, "Delay", "blue", "Cumulative Stopped Vehicles (Delay)", "delay")
     save_plot(switches_per_episode, "Switches", "purple", "Total Switches", "switches")
 
-    save_dir = f"../../models/{ABBR}"
+    save_dir = f"../models/{ABBR}"
     os.makedirs(save_dir, exist_ok=True)
 
     # Save the final trained PyTorch model
