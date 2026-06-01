@@ -1,0 +1,44 @@
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+.env
+
+# --- SUMO Simulation Outputs (The heavy stuff) ---
+*.log
+tripinfo.xml
+vehroutes.xml
+fcd-output.xml
+queue_results.csv
+statistics.xml
+*output.xml
+
+# --- Intermediate Network Builds ---
+*.edg.xml
+*.nod.xml
+*.con.xml
+*.tll.xml
+
+# --- Machine Learning Artifacts ---
+*.pth
+*.pt
+*.h5
+*.pkl
+/models/
+/outputs/
+
+# --- IDE & OS ---
+.DS_Store
+.vscode/
+.idea/
+
+# --- Legacy OSM Wizard Folders ---
+202*-*-*-*-*
+
+# --- Setup Generated Files ---
+*.net.xml
+*.rou.xml
+*.add.xml
